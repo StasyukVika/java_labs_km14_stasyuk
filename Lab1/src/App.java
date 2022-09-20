@@ -1,19 +1,19 @@
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class App {
+public class StringCalculator {
     
-    static public int add(String str)
+    static public int add(String numbers)
     {
         int sum = 0;
         String delimiter = ",|\n", substring[], bb = "";
-        int start_del = str.indexOf("//");
-        int end_del = str.indexOf("\n");
+        int start_del = numbers.indexOf("//");
+        int end_del = numbers.indexOf("\n");
 
         if (start_del != -1 )
         {
-            delimiter = str.substring(start_del + 2, end_del);
-            str = str.substring(end_del + 1);
+            delimiter = numbers.substring(start_del + 2, end_del);
+            numbers = numbers.substring(end_del + 1);
             if (delimiter.endsWith("]") && delimiter.indexOf("[") == 0) {
                 Pattern pattern = Pattern.compile("\\[(.*?)\\]");
                 Matcher matcher = pattern.matcher(delimiter);
@@ -22,14 +22,14 @@ public class App {
                 while (matcher.find()) {
                     for (int i = 0; i <= groupCount; i++) {
                         String m = matcher.group(i);
-                        str = str.replaceAll(Pattern.quote(m), ",");
+                        numbers = numbers.replaceAll(Pattern.quote(m), ",");
                     }
                 }
                 delimiter = ",";
-                substring = str.split(Pattern.quote(delimiter));
+                substring = numbers.split(Pattern.quote(delimiter));
             }
         } 
-        substring = str.split(delimiter);
+        substring = numbers.split(delimiter);
 
         int num_arr[] = new int[substring.length];
         for (int i = 0; i < substring.length; i++) 
@@ -67,8 +67,8 @@ public class App {
     
     public static void main(String[] args) 
     {
-        String str = "//;\n1;7;1";
-        int n = add(str);
+        String numbers = "//;\n1;7;1";
+        int n = add(numbers);
         System.out.println("Result: " + n );
     }
 }
